@@ -11,36 +11,18 @@
 <body>
    <div class="container" ng-controller="NarrowDownMenuController as narrowDownMenu">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
+    <div class="row">
+      <div class="form-group">
+        <input type="text" placeholder="search term" lass="form-control" ng-model="narrowDownMenu.searchTerm">
+        <div class="narrow-button">
+          <button class="btn btn-primary" ng-click="narrowDownMenu.getMenu(narrowDownMenu.searchTerm)">Narrow It Down For Me!</button>
+        </div>
+      </div>
+      
+    </div>
 
-    <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control" ng-model="narrowDownMenu.searchTerm">
-    </div>
-    <div class="form-group narrow-button">
-      <button class="btn btn-primary" ng-click="narrowDownMenu.getMenu(narrowDownMenu.searchTerm)">Narrow It Down For Me!</button>
-    </div>
-    
     <!-- found-items should be implemented as a component -->
-    <!-- found-items menu-list="narrowDownMenu" on-remove=""></found-items> -->
-
-
-    <ol>
-      <li ng-repeat="item in narrowDownMenu.foundItemsList">
-        {{ item.description }} of {{ item.name }}
-      </li>
-    </ol>
-
-    <div class="row" ng-repeat="item in narrowDownMenu.foundItemsList">
-        <h2>{{item.name}}</h2>
-            <p>{{item.description}}</p>
-        <div class="col-md-12">
-            
-        </div>
-        <div class="col-md-12">
-            <button class="btn btn-primary pull-right" ng-click="">Don't want this one!</button>
-        </div>
-    </div>
-<button class="btn btn-primary" ng-click="narrowDownMenu.seeItemArray()">see array</button>
-  </div>
+    <found-items menu-list="narrowDownMenu" on-remove=""></found-items>
 
 </body>
 </html>

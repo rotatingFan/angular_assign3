@@ -12,15 +12,23 @@ angular.module('NarrowDownMenuApp', [])
 NarrowDownMenuController.$inject = ['NarrowDownMenuService']
 function NarrowDownMenuController(NarrowDownMenuService){
     var controller = this;
-    controller.seeItemArray = function(){
-        console.log(NarrowDownMenuService.getItems());
-    };
 
     controller.foundItemsList = NarrowDownMenuService.getItems();
 
     controller.searchTerm = '';
 
+    controller.onRemove = function (itemIndex) {
+        NarrowDownMenuService.removeItem(itemIndex);
+    };
+
     controller.getMenu = function(searchTerm){
+
+        if(searchTerm == null || searchTerm == ''){
+            NarrowDownMenuService.resetitemArray();
+            controller.foundItemsList = NarrowDownMenuService.getItems();
+            return false;
+        }
+
         var promise = NarrowDownMenuService.getMenuForCatrgory('');
 
         promise.then(function(response){
@@ -33,6 +41,7 @@ function NarrowDownMenuController(NarrowDownMenuService){
                   NarrowDownMenuService.addItem(item.name, item.description);
               }
             });
+            controller.foundItemsList = NarrowDownMenuService.getItems();
             console.log(NarrowDownMenuService.getItems());
         })
         .catch(function(error){
@@ -72,9 +81,13 @@ function NarrowDownMenuService($http, ApiBasePath){
 
     };
 
+    service.removeItem = function (itemIndex) {
+        foundItemArray.splice(itemIndex, 1);
+    };
+
     service.resetitemArray = function(){
         foundItemArray = [];
-    }
+    };
 
     service.getMenuForCatrgory = function(searchTerm){
         var response = $http({
@@ -93,8 +106,7 @@ function foundItemsDirective(){
     var ddo={
         templateUrl:'foundItems.html',
         scope:{
-            menuList: '=menuList',
-            onRemove: '&'
+            menuList: '=menuList'
         },
     };
 
