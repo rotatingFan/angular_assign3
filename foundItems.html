@@ -1,0 +1,14 @@
+
+<div ng-repeat="item in menuList.foundItems">
+    hello
+    hii
+    <div class="col-md-12">
+        <h2>{{item.name}}</h2>
+        <p>{{item.description}}</p>
+    </div>
+    <div class="col-md-12">
+        <button class="btn btn-primary pull-right" ng-click="">Don't want this one!</button>
+    </div>
+</div>
+<div class="error" ng-if="list.cookiesInList()">WARNING! WARNING! COOKIES DETECTED!</div>
+
