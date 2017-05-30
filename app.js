@@ -106,7 +106,8 @@ function foundItemsDirective(){
     var ddo={
         templateUrl:'foundItems.html',
         scope:{
-            menuList: '=menuList'
+            menuList: '<',
+            onRemove: '&'
         },
     };
 
